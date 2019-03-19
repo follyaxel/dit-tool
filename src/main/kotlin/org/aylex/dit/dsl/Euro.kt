@@ -10,7 +10,7 @@ import javax.money.format.AmountFormatQueryBuilder
 import javax.money.format.MonetaryAmountFormat
 import javax.money.format.MonetaryFormats
 
-data class Euro private constructor(private val value: MonetaryAmount) {
+data class Euro private constructor(private val value: MonetaryAmount): Comparable<Euro> {
     fun multiplyBy(number: BigDecimal): Euro {
         return Euro(value.multiply(number))
     }
@@ -31,6 +31,15 @@ data class Euro private constructor(private val value: MonetaryAmount) {
         return this.value.isGreaterThanOrEqualTo(euro.value)
     }
 
+    override fun compareTo(other: Euro): Int {
+        return value.compareTo(other.value)
+    }
+
+    operator fun rangeTo(that: Euro) = Range(this,that)
+
+    operator fun inc(): Euro {
+        return this.add(Euro.of(1))
+    }
 
     companion object {
         private val locale = Locale.forLanguageTag("nl-NL")
@@ -59,3 +68,21 @@ data class Euro private constructor(private val value: MonetaryAmount) {
     }
 }
 
+class Range(override val start: Euro, override val endInclusive: Euro) : ClosedRange<Euro>, Iterable<Euro> {
+    override fun iterator(): Iterator<Euro> {
+        return EuroIterator(start, endInclusive)
+    }
+
+}
+
+class EuroIterator(val start: Euro, val endInclusive: Euro) : Iterator<Euro> {
+    var initValue = start
+
+    override fun hasNext(): Boolean {
+        return initValue <= endInclusive
+    }
+
+    override fun next(): Euro {
+        return initValue++
+    }
+}

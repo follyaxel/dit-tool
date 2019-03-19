@@ -44,12 +44,12 @@ class TAXBRACKETS: ArrayList<TaxBracket>() {
 
 class TaxBracketBuilder {
 
-    private var percentage = Percentage.of(0)
-    var value : String = "0%"
+    private var taxPercentage = Percentage.of(0)
+    var tax : String = "0%"
         set(value) {
             val percentageFormat = NumberFormat.getPercentInstance()
             percentageFormat.minimumFractionDigits = 2
-            percentage = Percentage.of(percentageFormat.parse(value))
+            taxPercentage = Percentage.of(percentageFormat.parse(value))
         }
 
     private var minEuro: Euro = Euro.of(0)
@@ -64,7 +64,17 @@ class TaxBracketBuilder {
             maxEuro = Euro.of(value)
         }
 
+    private var minIncome: Income = Income(Euro.of(0))
+    fun minIncome(block: IncomeBuilder.() -> Unit) {
+        minIncome = IncomeBuilder().apply(block).build()
+    }
+
+    private var maxIncome: Income = Income(Euro.of(0))
+    fun maxIncome(block: IncomeBuilder.() -> Unit) {
+        maxIncome = IncomeBuilder().apply(block).build()
+    }
+
     fun build(): TaxBracket {
-        return TaxBracket(percentage, minEuro, maxEuro)
+        return TaxBracket(taxPercentage, minEuro, maxEuro, minIncome, maxIncome)
     }
 }
