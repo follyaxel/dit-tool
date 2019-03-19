@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: uy.klutter:klutter-core-jdk8:1.20.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/uy.klutter/klutter-core-jdk8/1.20.1/e8f5f1954b30b9245ff73f1ed33a0bf09f513e60/klutter-core-jdk8-1.20.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/uy.klutter/klutter-core-jdk8/1.20.1/e74bfccc263ec9782dd29c5c825c2d4dcc7354af/klutter-core-jdk8-1.20.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
