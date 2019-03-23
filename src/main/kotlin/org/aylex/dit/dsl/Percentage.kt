@@ -7,8 +7,8 @@ data class Percentage private constructor(val value: BigDecimal) {
         return of(income.value)
     }
 
-    fun of(euro: Euro): Euro {
-        return euro.multiplyBy(value)
+    private fun of(euro: Euro): Euro {
+        return euro * value
     }
 
     companion object {

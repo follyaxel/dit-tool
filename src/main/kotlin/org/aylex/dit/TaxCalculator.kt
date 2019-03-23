@@ -3,7 +3,9 @@
  */
 package org.aylex.dit
 
-import org.aylex.dit.dsl.*
+import org.aylex.dit.dsl.Euro
+import org.aylex.dit.dsl.Income
+import org.aylex.dit.dsl.TaxBracket
 
 class TaxCalculator() {
     private var taxBrackets = listOf<TaxBracket>();
@@ -13,38 +15,10 @@ class TaxCalculator() {
     }
 
     fun calculateTax(income: Income): Euro {
-        var tax: Euro = Euro.of(0)
+        var tax: Euro = Euro.zero()
         for (taxBracket: TaxBracket in taxBrackets) {
-            tax = tax.add(taxBracket.calculateTax(income))
+            tax += taxBracket.calculateTax(income)
         }
         return tax;
     }
-}
-
-fun main(args: Array<String>) {
-    val income = box1Income{ amount = "€ 10" }
-    val taxCalculator = taxCalculator {
-        taxBrackets {
-            taxBracket {
-                min = "EUR 0"
-                minIncome {
-                    amount = "EUR 0"
-                }
-                max = "EUR 5"
-                maxIncome {
-                    amount = "EUR 5"
-                }
-                tax = "10%"
-            }
-            taxBracket {
-                min = "EUR 6"
-                minIncome {
-                    amount = "EUR 6"
-                }
-                tax = "20%"
-            }
-        }
-    }
-
-    println(taxCalculator.calculateTax(income))
 }

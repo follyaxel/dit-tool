@@ -9,7 +9,7 @@ import java.text.NumberFormat
 fun box1Income(block: IncomeBuilder.() -> Unit): Income = IncomeBuilder().apply(block).build()
 
 class IncomeBuilder {
-    private var euro: Euro = Euro.of(0)
+    private var euro: Euro = Euro.zero()
     var amount : String = "EUR 0"
         set(value) {
             euro = Euro.of(value)
@@ -43,7 +43,6 @@ class TAXBRACKETS: ArrayList<TaxBracket>() {
 }
 
 class TaxBracketBuilder {
-
     private var taxPercentage = Percentage.of(0)
     var tax : String = "0%"
         set(value) {
@@ -52,29 +51,27 @@ class TaxBracketBuilder {
             taxPercentage = Percentage.of(percentageFormat.parse(value))
         }
 
-    private var minEuro: Euro = Euro.of(0)
-    var min : String = "EUR 0"
+    var minimum: String = "EUR 0"
         set(value) {
-            minEuro = Euro.of(value)
+            min = Income(Euro.of(value))
         }
 
-    private var maxEuro: Euro = Euro.of(0)
-    var max : String = "EUR 0"
-        set(value) {
-            maxEuro = Euro.of(value)
+    var maximum: String = "EUR 0"
+        set (value) {
+            max = Income(Euro.of(value))
         }
 
-    private var minIncome: Income = Income(Euro.of(0))
-    fun minIncome(block: IncomeBuilder.() -> Unit) {
-        minIncome = IncomeBuilder().apply(block).build()
+    private var min: Income = Income(Euro.zero())
+    fun min(block: IncomeBuilder.() -> Unit) {
+        min = IncomeBuilder().apply(block).build()
     }
 
-    private var maxIncome: Income = Income(Euro.of(0))
-    fun maxIncome(block: IncomeBuilder.() -> Unit) {
-        maxIncome = IncomeBuilder().apply(block).build()
+    private var max: Income = Income(Euro.maxValue())
+    fun max(block: IncomeBuilder.() -> Unit) {
+        max = IncomeBuilder().apply(block).build()
     }
 
     fun build(): TaxBracket {
-        return TaxBracket(taxPercentage, minEuro, maxEuro, minIncome, maxIncome)
+        return TaxBracket(taxPercentage, min, max)
     }
 }

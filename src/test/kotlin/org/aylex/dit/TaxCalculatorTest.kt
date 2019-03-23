@@ -22,10 +22,7 @@ class TaxCalculatorTest {
         val income = box1Income{ amount = "€ 1" }
         val taxCalculator = taxCalculator {
             taxBracket {
-                min = "EUR 0"
-                minIncome {
-                  amount = "EUR 0"
-                }
+                minimum = "EUR 0"
                 tax = "10%"
             }
         }
@@ -39,21 +36,12 @@ class TaxCalculatorTest {
         val taxCalculator = taxCalculator {
             taxBrackets {
                 taxBracket {
-                    min = "EUR 0"
-                    minIncome {
-                      amount = "EUR 0"
-                    }
-                    max = "EUR 5"
-                    maxIncome {
-                       amount = "EUR 5"
-                    }
+                    minimum = "EUR 0"
+                    maximum = "EUR 5"
                     tax = "10%"
                 }
                 taxBracket {
-                    min = "EUR 6"
-                    minIncome {
-                        amount = "EUR 6"
-                    }
+                    minimum = "EUR 6"
                     tax = "20%"
                 }
             }

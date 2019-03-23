@@ -26,6 +26,8 @@ dependencies {
     implementation("org.javamoney:moneta:1.3")
     implementation( "uy.klutter:klutter-core:1.20.1")
 
+    implementation("com.squareup:kotlinpoet:1.1.0")
+
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
